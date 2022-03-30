@@ -40,3 +40,9 @@ def random_password(num_caps, num_sym, num_num, num_char):
 test = random_password(1, 1, 1, 12)
 print(test)
 
+master_password = [input("Enter The Master Password\nUsername: "), input("Enter Password: ")]
+print(master_password)
+
+saved_logins = []
+while True:
+    saved_logins.append(input("Enter Username:"))
