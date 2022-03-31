@@ -78,7 +78,7 @@ def add_login():
         
 def access_logins():
     num_tries = 0
-    while num_tries < 3:
+    if num_tries < 3:
         while True:
             username = input("Enter Your Master Username: ")
             password = input("Enter Your Master Password: ")
@@ -97,6 +97,9 @@ def access_logins():
             else:
                 print("Login FAILED! Try Again")
                 num_tries += 1  
+    else:
+        print("Invalid Login! You have been logged out!")
+        exit()
     
 while True:
     choice = input("Do You Want To Add or Access Passwords?: (Add/Access/X)")
