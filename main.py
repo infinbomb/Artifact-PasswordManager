@@ -78,24 +78,25 @@ def add_login():
         
 def access_logins():
     num_tries = 0
-    while True:
-        username = input("Enter Your Master Username: ")
-        password = input("Enter Your Master Password: ")
-        if master_password == [username, password]:
-            site_req = input("Which Site's login Info Do You Want?: ")
-            for site in saved_logins:
-                if site[0] == site_req:
-                    print("Username: " + site[1] + "\nPassword: " + site[2])
-                    break #breaks from while loop
-            print("Anything Else?")
-            choice = input("(Yes/No):")
-            if choice == "yes":
-                pass
+    while num_tries < 3:
+        while True:
+            username = input("Enter Your Master Username: ")
+            password = input("Enter Your Master Password: ")
+            if master_password == [username, password]:
+                site_req = input("Which Site's login Info Do You Want?: ")
+                for site in saved_logins:
+                    if site[0] == site_req:
+                        print("Username: " + site[1] + "\nPassword: " + site[2])
+                        break #breaks from while loop
+                print("Anything Else?")
+                choice = input("(Yes/No):")
+                if choice == "yes":
+                    pass
+                else:
+                    break
             else:
-                break
-        else:
-            print("Login FAILED! Try Again")
-            num_tries += 1  
+                print("Login FAILED! Try Again")
+                num_tries += 1  
     
 while True:
     choice = input("Do You Want To Add or Access Passwords?: (Add/Access/X)")
