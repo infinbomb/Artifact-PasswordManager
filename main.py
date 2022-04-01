@@ -4,11 +4,11 @@ letters = "qwertyuiopasdfghjklzxcvbnm"
 symbols = ",./;'[]\=-~!@#$%^&*()`{}|:\"<>?"
 numbers = "1234567890"
 
-master_password = (
+master_username = input("Enter MasterUsername: ")
+master_password = input("Enter MasterPassword: ")
+master_password = [master_username, master_password]
     # This will be the password of all passwords
-        [input("Enter The Master Password\nUsername: "), 
-        input("Enter Password: ")]
-    )
+
 print(master_password)
 saved_logins = []
 # This will be turned into a 2D array
@@ -51,21 +51,54 @@ def random_password(num_caps, num_sym, num_num, num_char):
 def add_login():
     while True:
         domain = input("Enter Site: ")
-        username = input("Enter Your Username: ")
-        password = None
+        done = False
         
-        choice = input("Would You Like a Random Password? (y/n): ")
+        # Checks if another login with same domain already exists
+        for site in saved_logins:
+            if site[0] == domain:
+                print("You Already Have A Login For This Site")
+                repeat = input("Do You Want to Add Another? (Y/N)")
+                if repeat.lower() == "y":
+                    new_username = input("Enter UserName: ")
+                    new_password = input("Enter Password: ")
+                    saved_logins.append([domain, new_username, new_password])
+                    done == True
+                    break
+                elif repeat.lower() == "n":
+                    print("Please Request to Access Login")
+                    done = True
+                    break 
+        if done == True:
+            break # Breaks from while loop and from function
+                     
+        username = input("Enter Your Username: ")
+        password = None # Needs to be initated first
+        
+        choice = (input("Would You Like a Random Password? (y/n): ")).lower()
         
         if choice == "y":
             caps, syms, nums, chars = (
-                input("Enter # Caps: "),
-                input("# Syms: "),
-                input("# Nums: "), 
-                input("# Chars: ")
+                int(input("Enter # Caps: ")),
+                int(input("# Syms: ")),
+                int(input("# Nums: ")), 
+                int(input("# Chars: "))
             ) 
-            password = random_password(caps, syms, nums, chars)
-        else:
+            if (int(caps) + (int(syms) + int(nums)) <= chars):
+                password = random_password(caps, syms, nums, chars)
+            else: 
+                print("Please Have A Valid Number of Requirements (too many for # of characters)")
+                caps, syms, nums, chars = (
+                int(input("Enter # Caps: ")),
+                int(input("# Syms: ")),
+                int(input("# Nums: ")), 
+                int(input("# Chars: "))
+                ) 
+                password = random_password(caps, syms, nums, chars)
+            print("Your Password is: " + password)
+        elif choice == 'n':
             password = input("Enter Your Password: ") 
+        else: 
+            print("Please Enter A Valid Choice")
                        
         saved_logins.append([domain, username, password])
         print("Password Saved")
@@ -77,17 +110,15 @@ def add_login():
             break
         
 def access_logins():
-    num_tries = 0
-    if num_tries < 3:
-        while True:
+    num_tries = 0 # Weak Security But Good for now
+
+    while True:
+        if num_tries < 3:
             username = input("Enter Your Master Username: ")
             password = input("Enter Your Master Password: ")
             if master_password == [username, password]:
-                site_req = input("Which Site's login Info Do You Want?: ")
                 for site in saved_logins:
-                    if site[0] == site_req:
-                        print("Username: " + site[1] + "\nPassword: " + site[2])
-                        break #breaks from while loop
+                    print(site)
                 print("Anything Else?")
                 choice = input("(Yes/No):")
                 if choice == "yes":
@@ -97,9 +128,9 @@ def access_logins():
             else:
                 print("Login FAILED! Try Again")
                 num_tries += 1  
-    else:
-        print("Invalid Login! You have been logged out!")
-        exit()
+        else:
+            print("Invalid Login! You have been logged out!")
+            exit()
     
 while True:
     choice = input("Do You Want To Add or Access Passwords?: (Add/Access/X)")
