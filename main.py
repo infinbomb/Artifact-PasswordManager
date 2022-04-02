@@ -23,7 +23,6 @@ def random_password(num_caps, num_sym, num_num, num_char):
         # word is a lowercase string with random letters
     for x in range(num_char):
         available_values.append(x)
-        
     if num_sym == 0 and num_num == 0 and num_caps == 0:
         pass
     else:                            
@@ -118,18 +117,20 @@ def access_logins():
             password = input("Enter Your Master Password: ")
             if master_password == [username, password]:
                 for site in saved_logins:
-                    print(site)
+                    print("Site: " + site[0], sep = ", ")
+                    print("User: " + site[1], sep = ", ")
+                    print("Pass: " + site[2])
                 print("Anything Else?")
-                choice = input("(Yes/No):")
+                choice = (input("(Yes/No):")).lower()
                 if choice == "yes":
-                    pass
-                else:
-                    break
+                    break #while break
+                elif choice == "no":
+                    exit()
             else:
                 print("Login FAILED! Try Again")
                 num_tries += 1  
         else:
-            print("Invalid Login! You have been logged out!")
+            print("Invalid Login! You have been locked out!")
             exit()
     
 while True:
@@ -139,6 +140,7 @@ while True:
     elif choice.lower() == "access":
         access_logins()
     elif choice.lower() == "x":
-        break
-    else:
+        print("Thanks for using my program!")
+        exit()
+    else: 
         print("Invalid Choice! Please Enter A Valid Choice!")
