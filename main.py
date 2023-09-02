@@ -10,7 +10,7 @@ master_password = [master_username, master_password]
     # This will be the password of all passwords
 
 print(master_password)
-saved_logins = []
+saved_logins = [] 
 # This will be turned into a 2D array
 # To access Enter row(1, 2, 3, ...) and 
 # column(0, 1, 2) like so: saved_logins[][]  
