@@ -1,7 +1,7 @@
 import random
 
 letters = "qwertyuiopasdfghjklzxcvbnm"
-symbols = ",./;'[]\=-~!@#$%^&*()`{}|:\"<>?"
+symbols = ",./;'[]-~!@=#$%^&*()`{}|:\"<>?"
 numbers = "1234567890"
 
 master_username = input("Enter MasterUsername: ")
